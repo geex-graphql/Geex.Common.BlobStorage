@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MimeKitLite" Version="2.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Geex.Common.Abstraction\Geex.Common.Abstraction.csproj" />
+    <ProjectReference Include="..\Geex.Common.Settings\Geex.Common.Settings.csproj" />
+  </ItemGroup>
+
+</Project>
