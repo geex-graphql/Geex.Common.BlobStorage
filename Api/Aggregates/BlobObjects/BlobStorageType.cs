@@ -13,9 +13,10 @@ namespace Kuanfang.Ims.DataFileObjects.External
         public BlobStorageType(string name, string value) : base(name, value)
         {
         }
-        public static BlobStorageType AliyunOss = new BlobStorageType(nameof(AliyunOss), nameof(AliyunOss));
-        public static BlobStorageType RedisCache = new BlobStorageType(nameof(RedisCache), nameof(RedisCache));
-        public static BlobStorageType Db = new BlobStorageType(nameof(Db), nameof(Db));
+
+        public static BlobStorageType AliyunOss { get; } = new BlobStorageType(nameof(AliyunOss), nameof(AliyunOss));
+        public static BlobStorageType RedisCache { get; } = new BlobStorageType(nameof(RedisCache), nameof(RedisCache));
+        public static BlobStorageType Db { get; } = new BlobStorageType(nameof(Db), nameof(Db));
 
     }
 }

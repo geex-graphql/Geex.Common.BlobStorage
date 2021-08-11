@@ -14,7 +14,7 @@ using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectMutation : QueryTypeExtension<BlobObjectMutation>
+    public class BlobObjectMutation : MutationTypeExtension<BlobObjectMutation>
     {
         /// <summary>
         /// 创建BlobObject

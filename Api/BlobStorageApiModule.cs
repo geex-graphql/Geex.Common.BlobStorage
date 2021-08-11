@@ -3,7 +3,7 @@ using Volo.Abp.Modularity;
 
 namespace Geex.Common.BlobStorage.Api
 {
-    public class CommonBlobStorageApiModule : GeexModule<CommonBlobStorageApiModule>
+    public class BlobStorageApiModule : GeexModule<BlobStorageApiModule>
     {
     }
 }
