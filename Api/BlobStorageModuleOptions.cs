@@ -12,6 +12,6 @@ namespace Geex.Common.BlobStorage.Api
 {
     public class BlobStorageModuleOptions : IGeexModuleOption<BlobStorageApiModule>
     {
-        public string FileDownloadPath { get; set; }
+        public string FileDownloadPath { get; set; } = "/download";
     }
 }
