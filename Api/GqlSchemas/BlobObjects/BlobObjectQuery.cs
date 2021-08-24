@@ -26,6 +26,12 @@ namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
             .UseOffsetPaging<BlobObjectGqlType>()
             .UseFiltering<IBlobObject>(x =>
             {
+                x.BindFieldsExplicitly();
+                x.Field(y => y.Id);
+                x.Field(y => y.Md5);
+                x.Field(y => y.MimeType);
+                x.Field(y => y.StorageType);
+                x.Field(y => y.FileSize);
                 x.Field(y => y.FileName);
             })
             ;
