@@ -1,3 +1,5 @@
+using Geex.Common.Abstraction;
+
 using Kuanfang.Ims.DataFileObjects.External;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,7 @@ namespace Geex.Common.BlobStorage.Api.Aggregates.BlobObjects
         public long FileSize { get; }
         public string MimeType { get; }
         public string Url =>
-            $"{DbContext.ServiceProvider.GetService<BlobStorageModuleOptions>().FileDownloadPath}?fileId={this.Id}&storageType={this.StorageType}";
+            $"{DbContext.ServiceProvider.GetService<GeexCoreModuleOptions>().Host.Trim('/')}/{DbContext.ServiceProvider.GetService<BlobStorageModuleOptions>().FileDownloadPath.Trim('/')}?fileId={this.Id}&storageType={this.StorageType}";
         public BlobStorageType StorageType { get; }
     }
 }
