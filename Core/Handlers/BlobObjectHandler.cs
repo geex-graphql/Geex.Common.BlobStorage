@@ -78,7 +78,7 @@ namespace Geex.Common.BlobStorage.Core.Handlers
                         await dbFile.Data.ClearAsync(cancellationToken);
                     }
                 }
-                await blobObjects.DeleteAllAsync();
+                await blobObjects.DeleteAsync();
                 return Unit.Value;
             }
             throw new NotImplementedException();
