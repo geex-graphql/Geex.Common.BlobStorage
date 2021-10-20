@@ -22,7 +22,7 @@ namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
     {
         protected override void Configure(IObjectTypeDescriptor<BlobObjectQuery> descriptor)
         {
-            descriptor.ResolveMethod(x => x.BlobObjects(default))
+            descriptor.ConfigQuery(x => x.BlobObjects(default))
             .UseOffsetPaging<BlobObjectGqlType>()
             .UseFiltering<IBlobObject>(x =>
             {
