@@ -3,14 +3,14 @@ using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.Abstractions;
 using Kuanfang.Ims.DataFileObjects.External;
 using MongoDB.Entities;
-using Entity = Geex.Common.Abstractions.Entity;
+using Entity = Geex.Common.Abstraction.Storage.Entity;
 
 namespace Geex.Common.BlobStorage.Core.Aggregates.BlobObjects
 {
     /// <summary>
     /// this is a aggregate root of this module, we name it the same as the module feel free to change it to its real name
     /// </summary>
-    public class BlobObject : Entity, IBlobObject
+    public class BlobObject : Abstraction.Storage.Entity, IBlobObject
     {
         public BlobObject(string fileName, string md5, BlobStorageType storageType, string mimeType, long fileSize)
         {
