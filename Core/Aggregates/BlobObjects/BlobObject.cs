@@ -1,7 +1,10 @@
 using System;
+using Geex.Common.Abstraction;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.Abstractions;
+using Geex.Common.BlobStorage.Api;
 using Kuanfang.Ims.DataFileObjects.External;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Entities;
 using Entity = Geex.Common.Abstraction.Storage.Entity;
 
@@ -28,6 +31,8 @@ namespace Geex.Common.BlobStorage.Core.Aggregates.BlobObjects
 
         public string FileName { get; set; }
         public string Md5 { get; set; }
+        public string Url =>
+            $"{DbContext.ServiceProvider.GetService<GeexCoreModuleOptions>().Host.Trim('/')}/{DbContext.ServiceProvider.GetService<BlobStorageModuleOptions>().FileDownloadPath.Trim('/')}?fileId={this.Id}&storageType={this.StorageType}";
         public long FileSize { get; set; }
         public string MimeType { get; set; }
         public BlobStorageType StorageType { get; set; }

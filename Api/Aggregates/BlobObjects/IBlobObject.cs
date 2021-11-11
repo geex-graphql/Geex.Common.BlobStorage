@@ -17,8 +17,7 @@ namespace Geex.Common.BlobStorage.Api.Aggregates.BlobObjects
         public string Md5 { get; set; }
         public long FileSize { get; }
         public string MimeType { get; }
-        public string Url =>
-            $"{DbContext.ServiceProvider.GetService<GeexCoreModuleOptions>().Host.Trim('/')}/{DbContext.ServiceProvider.GetService<BlobStorageModuleOptions>().FileDownloadPath.Trim('/')}?fileId={this.Id}&storageType={this.StorageType}";
+        public string Url { get; }
         public BlobStorageType StorageType { get; }
     }
 }
