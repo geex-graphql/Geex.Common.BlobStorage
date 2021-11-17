@@ -1,24 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;
-using Geex.Common.BlobStorage.Core.Aggregates;
 using Geex.Common.BlobStorage.Core.Aggregates.BlobObjects;
 
 using Geex.Common.Abstraction.Gql.Inputs;
 using Geex.Common.BlobStorage.Api.Abstractions;
-using Kuanfang.Ims.DataFileObjects;
 using Kuanfang.Ims.DataFileObjects.External;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using MimeKit;
-using MongoDB.Bson;
 using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Core.Handlers
@@ -49,7 +42,7 @@ namespace Geex.Common.BlobStorage.Core.Handlers
             await entity.SaveAsync(cancellation: cancellationToken);
             if (request.StorageType == BlobStorageType.Db)
             {
-                var dbFile = await DbContext.Find<DbFile>().Match(x => x.Md5 == request.Md5).ExecuteFirstAsync(cancellationToken);
+                var dbFile = await Task.FromResult(DbContext.Queryable<DbFile>().First(x => x.Md5 == request.Md5));
                 if (dbFile == null)
                 {
                     dbFile = new DbFile(entity.Md5);
@@ -68,13 +61,13 @@ namespace Geex.Common.BlobStorage.Core.Handlers
         {
             if (request.StorageType == BlobStorageType.Db)
             {
-                var blobObjects = await DbContext.Find<BlobObject>().Match(x => request.Ids.Contains(x.Id)).ExecuteAsync(cancellationToken);
+                var blobObjects = await Task.FromResult(DbContext.Queryable<DbFile>().Where(x => request.Ids.Contains(x.Id)));
                 foreach (var blobObject in blobObjects)
                 {
                     var duplicateCount = await DbContext.CountAsync<BlobObject>(x => x.Md5 == blobObject.Md5, cancellationToken);
                     if (duplicateCount <= 1)
                     {
-                        var dbFile = await DbContext.Find<DbFile>().Match(x => x.Md5 == blobObject.Md5).ExecuteSingleAsync(cancellationToken);
+                        var dbFile = await Task.FromResult(DbContext.Queryable<DbFile>().Single(x => x.Md5 == blobObject.Md5));
                         await dbFile.Data.ClearAsync(cancellationToken);
                     }
                 }
@@ -86,7 +79,7 @@ namespace Geex.Common.BlobStorage.Core.Handlers
 
         public Task<BlobObject> GetOrNullAsync(string id)
         {
-            return DbContext.Find<BlobObject>().OneAsync(id);
+            return Task.FromResult(DbContext.Queryable<BlobObject>().First(x => x.Id == id));
         }
 
         /// <summary>Handles a request</summary>
@@ -95,8 +88,8 @@ namespace Geex.Common.BlobStorage.Core.Handlers
         /// <returns>Response from the request</returns>
         public async Task<(IBlobObject blob, DbFile dbFile)> Handle(DownloadFileRequest request, CancellationToken cancellationToken)
         {
-            var blob = await DbContext.Find<BlobObject>().OneAsync(request.FileId, cancellationToken);
-            var dbFile = await DbContext.Find<DbFile>().Match(x => x.Md5 == blob.Md5).ExecuteFirstAsync(cancellationToken);
+            var blob = await Task.FromResult(DbContext.Queryable<BlobObject>().First(x => x.Id == request.FileId));
+            var dbFile = await Task.FromResult(DbContext.Queryable<DbFile>().First(x => x.Md5 == blob.Md5));
             return (blob, dbFile);
         }
     }
