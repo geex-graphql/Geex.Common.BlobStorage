@@ -39,14 +39,13 @@ namespace Geex.Common.BlobStorage.Core.Handlers
         {
             var entity = new BlobObject(request.File.Name, request.Md5, request.StorageType, MimeTypes.GetMimeType(request.File.Name), request.File.Length.GetValueOrDefault());
             DbContext.Attach(entity);
-            await entity.SaveAsync(cancellation: cancellationToken);
             if (request.StorageType == BlobStorageType.Db)
             {
-                var dbFile = await Task.FromResult(DbContext.Queryable<DbFile>().First(x => x.Md5 == request.Md5));
+                var dbFile = DbContext.Queryable<DbFile>().FirstOrDefault(x => x.Md5 == request.Md5);
                 if (dbFile == null)
                 {
                     dbFile = new DbFile(entity.Md5);
-                    await dbFile.SaveAsync(cancellationToken);
+                    await DbContext.SaveChanges(cancellationToken);
                     await dbFile.Data.UploadAsync(request.File.OpenReadStream(), cancellation: cancellationToken);
                 }
             }
