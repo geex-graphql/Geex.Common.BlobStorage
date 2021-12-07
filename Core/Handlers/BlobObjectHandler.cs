@@ -45,6 +45,7 @@ namespace Geex.Common.BlobStorage.Core.Handlers
                 if (dbFile == null)
                 {
                     dbFile = new DbFile(entity.Md5);
+                    DbContext.Attach(dbFile);
                     await DbContext.SaveChanges(cancellationToken);
                     await dbFile.Data.UploadAsync(request.File.OpenReadStream(), cancellation: cancellationToken);
                 }
