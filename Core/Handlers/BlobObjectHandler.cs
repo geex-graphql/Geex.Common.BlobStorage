@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;
 using Geex.Common.BlobStorage.Core.Aggregates.BlobObjects;
@@ -17,7 +17,7 @@ using MongoDB.Entities;
 namespace Geex.Common.BlobStorage.Core.Handlers
 {
     public class BlobObjectHandler :
-        IRequestHandler<QueryInput<IBlobObject>, IQueryable<IBlobObject>>,
+        ICommonHandler<IBlobObject,BlobObject>,
         IRequestHandler<CreateBlobObjectRequest, IBlobObject>,
         IRequestHandler<DeleteBlobObjectRequest, Unit>,
         IRequestHandler<DownloadFileRequest, (IBlobObject blob, DbFile dbFile)>
@@ -27,12 +27,6 @@ namespace Geex.Common.BlobStorage.Core.Handlers
         public BlobObjectHandler(DbContext dbContext)
         {
             DbContext = dbContext;
-        }
-        public async Task<IQueryable<IBlobObject>> Handle(QueryInput<IBlobObject> input,
-            CancellationToken cancellationToken)
-        {
-            // todo: 区分存储类型
-            return DbContext.Queryable<BlobObject>();
         }
 
         public async Task<IBlobObject> Handle(CreateBlobObjectRequest request, CancellationToken cancellationToken)
