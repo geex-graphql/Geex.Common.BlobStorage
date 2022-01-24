@@ -1,8 +1,11 @@
 using Geex.Common.Abstractions;
 using Geex.Common.BlobStorage.Api;
+
 using HotChocolate.Types;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Modularity;
@@ -18,11 +21,12 @@ namespace Geex.Common.BlobStorage.Core
             base.PostConfigureServices(context);
         }
 
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        /// <inheritdoc />
+        public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
-            base.OnApplicationInitialization(context);
             app.UseFileDownload();
+            base.OnPostApplicationInitialization(context);
         }
     }
 }
