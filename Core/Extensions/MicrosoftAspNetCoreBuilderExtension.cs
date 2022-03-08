@@ -31,16 +31,17 @@ namespace Microsoft.AspNetCore.Builder
         {
             app.Map(app.ApplicationServices.GetService<BlobStorageModuleOptions>().FileDownloadPath, builder =>
             {
-                builder.Use(async (context, func) =>
+                builder.Use(async (context, next) =>
                 {
                     if (context.Request.Query.TryGetValue("storageType", out var storageType) && context.Request.Query.TryGetValue("fileId", out var fileId))
                     {
                         var (blobObject, dbFile) = await context.RequestServices.GetService<IMediator>().Send(new DownloadFileRequest(fileId, BlobStorageType.FromValue(storageType)));
                         context.Response.ContentType = blobObject.MimeType;
                         await dbFile.Data.DownloadAsync(context.Response.Body);
-                        return;
+                        await next(context);
                     }
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    await next(context);
                 });
             });
         }
