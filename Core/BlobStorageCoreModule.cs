@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 using Geex.Common.Abstractions;
 using Geex.Common.BlobStorage.Api;
 
@@ -15,18 +17,18 @@ namespace Geex.Common.BlobStorage.Core
     [DependsOn(typeof(BlobStorageApiModule))]
     public class BlobStorageCoreModule : GeexModule<BlobStorageCoreModule>
     {
-        public override void PostConfigureServices(ServiceConfigurationContext context)
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
             SchemaBuilder.AddType<UploadType>();
-            base.PostConfigureServices(context);
+            base.ConfigureServices(context);
         }
 
         /// <inheritdoc />
-        public override void OnPostApplicationInitialization(ApplicationInitializationContext context)
+        public override Task OnPreApplicationInitializationAsync(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
-            app.UseFileDownload();
-            base.OnPostApplicationInitialization(context);
+            app.UseEndpoints(endpoints => endpoints.UseFileDownload());
+            return base.OnPreApplicationInitializationAsync(context);
         }
     }
 }

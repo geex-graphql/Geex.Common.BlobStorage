@@ -7,8 +7,7 @@ using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;
 using Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects.Types;
 
 using Geex.Common.Abstraction.Gql.Inputs;
-using Geex.Common.Gql.Roots;
-
+using Geex.Common.Abstraction.Gql.Types;
 using HotChocolate;
 using HotChocolate.Types;
 
@@ -18,7 +17,7 @@ using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectQuery : QueryTypeExtension<BlobObjectQuery>
+    public class BlobObjectQuery : Query<BlobObjectQuery>
     {
         protected override void Configure(IObjectTypeDescriptor<BlobObjectQuery> descriptor)
         {

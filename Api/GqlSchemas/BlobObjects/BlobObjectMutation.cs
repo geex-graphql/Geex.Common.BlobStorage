@@ -1,10 +1,7 @@
 using System.Threading.Tasks;
-
+using Geex.Common.Abstraction.Gql.Types;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;
-
-using Geex.Common.Gql.Roots;
-
 using HotChocolate;
 using HotChocolate.Types;
 
@@ -14,7 +11,7 @@ using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectMutation : MutationTypeExtension<BlobObjectMutation>
+    public class BlobObjectMutation : Mutation<BlobObjectMutation>
     {
         /// <summary>
         /// 创建BlobObject
