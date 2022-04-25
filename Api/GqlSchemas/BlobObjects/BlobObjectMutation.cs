@@ -11,18 +11,24 @@ using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectMutation : Mutation<BlobObjectMutation>
+    public class BlobObjectMutation : MutationExtension<BlobObjectMutation>
     {
+        private readonly IMediator _mediator;
+
+        public BlobObjectMutation(IMediator mediator)
+        {
+            this._mediator = mediator;
+        }
+
         /// <summary>
         /// 创建BlobObject
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<IBlobObject> CreateBlobObject(
-            [Service] IMediator mediator,
             CreateBlobObjectRequest input)
         {
-            var result = await mediator.Send(input);
+            var result = await _mediator.Send(input);
             return result;
         }
 
@@ -32,10 +38,9 @@ namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<bool> DeleteBlobObject(
-            [Service] IMediator mediator,
             DeleteBlobObjectRequest input)
         {
-            var result = await mediator.Send(input);
+            var result = await _mediator.Send(input);
             return true;
         }
     }

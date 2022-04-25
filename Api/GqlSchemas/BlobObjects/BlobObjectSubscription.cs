@@ -3,7 +3,7 @@ using HotChocolate.Types;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectSubscription : Subscription<BlobObjectSubscription>
+    public class BlobObjectSubscription : SubscriptionExtension<BlobObjectSubscription>
     {
         // todo
     }

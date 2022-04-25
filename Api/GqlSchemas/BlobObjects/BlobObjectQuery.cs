@@ -17,11 +17,18 @@ using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
 {
-    public class BlobObjectQuery : Query<BlobObjectQuery>
+    public class BlobObjectQuery : QueryExtension<BlobObjectQuery>
     {
+        private readonly IMediator _mediator;
+
+        public BlobObjectQuery(IMediator mediator)
+        {
+            this._mediator = mediator;
+        }
+
         protected override void Configure(IObjectTypeDescriptor<BlobObjectQuery> descriptor)
         {
-            descriptor.ConfigQuery(x => x.BlobObjects(default))
+            descriptor.Field(x => x.BlobObjects())
             .UseOffsetPaging<BlobObjectGqlType>()
             .UseFiltering<IBlobObject>(x =>
             {
@@ -43,9 +50,9 @@ namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects
         /// <param name="dto"></param>
         /// <returns></returns>
         public async Task<IQueryable<IBlobObject>> BlobObjects(
-            [Service] IMediator mediator)
+            )
         {
-            var result = await mediator.Send(new QueryInput<IBlobObject>());
+            var result = await _mediator.Send(new QueryInput<IBlobObject>());
             return result;
         }
 
