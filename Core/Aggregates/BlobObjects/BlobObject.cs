@@ -1,4 +1,7 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 using Geex.Common.Abstraction;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.Abstractions;
@@ -36,5 +39,9 @@ namespace Geex.Common.BlobStorage.Core.Aggregates.BlobObjects
         public long FileSize { get; set; }
         public string MimeType { get; set; }
         public BlobStorageType StorageType { get; set; }
+        public override async Task<ValidationResult> Validate(IServiceProvider sp, CancellationToken cancellation = default)
+        {
+            return ValidationResult.Success;
+        }
     }
 }
