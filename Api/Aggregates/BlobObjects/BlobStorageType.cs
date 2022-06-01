@@ -8,7 +8,7 @@ using Geex.Common.Abstractions;
 
 namespace Kuanfang.Ims.DataFileObjects.External
 {
-    public class BlobStorageType : Enumeration<BlobStorageType, string>
+    public class BlobStorageType : Enumeration<BlobStorageType>
     {
         public BlobStorageType(string name, string value) : base(name, value)
         {
