@@ -1,7 +1,5 @@
+using Geex.Common.Abstraction.Entities;
 using HotChocolate.Types;
-
-using Kuanfang.Ims.DataFileObjects.External;
-
 using MediatR;
 
 namespace Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs

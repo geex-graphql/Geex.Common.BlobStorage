@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;
 using Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects.Types;

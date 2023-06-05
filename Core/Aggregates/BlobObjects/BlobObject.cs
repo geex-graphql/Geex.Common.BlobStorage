@@ -3,20 +3,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Geex.Common.Abstraction;
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.Abstractions;
 using Geex.Common.BlobStorage.Api;
-using Kuanfang.Ims.DataFileObjects.External;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Entities;
-using Entity = Geex.Common.Abstraction.Storage.Entity;
-
 namespace Geex.Common.BlobStorage.Core.Aggregates.BlobObjects
 {
     /// <summary>
     /// this is a aggregate root of this module, we name it the same as the module feel free to change it to its real name
     /// </summary>
-    public class BlobObject : Abstraction.Storage.Entity, IBlobObject
+    public class BlobObject : Abstraction.Storage.Entity<BlobObject>, IBlobObject
     {
         public BlobObject(string fileName, string md5, BlobStorageType storageType, string mimeType, long fileSize)
         {

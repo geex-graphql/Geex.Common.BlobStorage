@@ -9,7 +9,6 @@ using Geex.Common.BlobStorage.Core.Aggregates.BlobObjects;
 
 using Geex.Common.Abstraction.Gql.Inputs;
 using Geex.Common.BlobStorage.Api.Abstractions;
-using Kuanfang.Ims.DataFileObjects.External;
 using MediatR;
 using MimeKit;
 using MongoDB.Entities;

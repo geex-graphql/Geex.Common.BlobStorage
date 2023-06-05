@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.Abstractions;
-using Kuanfang.Ims.DataFileObjects.External;
 using MediatR;
 
 namespace Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs

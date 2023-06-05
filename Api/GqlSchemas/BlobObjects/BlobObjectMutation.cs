@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.Abstraction.Gql.Types;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects.Inputs;

@@ -1,13 +1,10 @@
 using System;
-
+using Geex.Common.Abstraction.Entities;
 using Geex.Common.BlobStorage.Api.Aggregates.BlobObjects;
 using Geex.Common.BlobStorage.Core.Aggregates.BlobObjects;
 
 using HotChocolate;
 using HotChocolate.Types;
-
-using Kuanfang.Ims.DataFileObjects.External;
-
 using MongoDB.Entities;
 
 namespace Geex.Common.BlobStorage.Api.GqlSchemas.BlobObjects.Types
